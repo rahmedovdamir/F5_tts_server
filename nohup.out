@@ -1,0 +1,38 @@
+/home/rdr/f5tts-venv/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+INFO:     Started server process [279364]
+INFO:     Waiting for application startup.
+ERROR:    Traceback (most recent call last):
+  File "/home/rdr/f5tts-venv/lib/python3.11/site-packages/starlette/routing.py", line 648, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/home/rdr/f5tts-venv/lib/python3.11/site-packages/fastapi/routing.py", line 265, in __aenter__
+    await self._router._startup()
+  File "/home/rdr/f5tts-venv/lib/python3.11/site-packages/fastapi/routing.py", line 6375, in _startup
+    await handler()
+  File "/home/rdr/F5-TTS_server/server.py", line 226, in startup_event
+    await asyncio.to_thread(trt_worker.start)
+  File "/home/rdr/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/asyncio/threads.py", line 25, in to_thread
+    return await loop.run_in_executor(None, func_call)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rdr/.local/share/uv/python/cpython-3.11.16-linux-x86_64-gnu/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rdr/F5-TTS_server/server.py", line 120, in start
+    response = self._read_response(timeout=90)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rdr/F5-TTS_server/server.py", line 142, in _read_response
+    raise RuntimeError(
+RuntimeError: TRT worker exited with code -2
+
+ERROR:    Application startup failed. Exiting.
+/home/rdr/f5tts-venv/lib/python3.11/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+INFO:     Started server process [279785]
+INFO:     Waiting for application startup.
+INFO:root:TensorRT worker ready (NFE=14)
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [279785]
