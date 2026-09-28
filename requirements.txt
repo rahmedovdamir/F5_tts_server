@@ -1,0 +1,10 @@
+f5-tts==1.1.22
+torch==2.14.0
+torchaudio==2.11.0
+fastapi==0.141.1
+uvicorn==0.53.0
+python-multipart==0.0.32
+soundfile==0.14.0
+pydub==0.25.1
+python-magic==0.4.27
+cached-path==1.8.10
