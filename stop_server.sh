@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PID_FILE="/home/rdr/f5tts-server-v2.pid"
+source "$(dirname "${BASH_SOURCE[0]}")/config.sh"
 
 stopped=0
 if [[ -f "$PID_FILE" ]]; then
@@ -22,7 +22,7 @@ while read -r server_pid; do
         echo "Old F5-TTS server stopped (PID $server_pid)"
         stopped=1
     fi
-done < <(pgrep -f '^/home/rdr/f5tts-venv/bin/python -m uvicorn server:app --host 0\.0\.0\.0 --port 8888$' || true)
+done < <(pgrep -f "^$PYTHON_BIN -m uvicorn server:app --host 0\.0\.0\.0 --port $PORT$" || true)
 
 if [[ "$stopped" -eq 0 ]]; then
     echo "F5-TTS server is not running"

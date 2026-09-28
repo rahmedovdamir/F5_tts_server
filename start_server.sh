@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SERVER_DIR="/home/rdr/F5-TTS_server"
-PYTHON_BIN="/home/rdr/f5tts-venv/bin/python"
-LOG_FILE="/home/rdr/f5tts-server-v2.log"
-PID_FILE="/home/rdr/f5tts-server-v2.pid"
+source "$(dirname "${BASH_SOURCE[0]}")/config.sh"
 
 cd "$SERVER_DIR"
 
-port_pids="$(fuser -n tcp 8888 2>/dev/null || true)"
+port_pids="$(fuser -n tcp "$PORT" 2>/dev/null || true)"
 if [[ -n "$port_pids" ]]; then
-    echo "Port 8888 is already occupied by PID(s):$port_pids"
+    echo "Port $PORT is already occupied by PID(s):$port_pids"
     echo "Run: $SERVER_DIR/stop_server.sh"
     exit 1
 fi
@@ -26,7 +23,7 @@ fi
 
 PYTHONPATH="$SERVER_DIR${PYTHONPATH:+:$PYTHONPATH}" \
 nohup "$PYTHON_BIN" -m uvicorn server:app \
-    --host 0.0.0.0 --port 8888 \
+    --host 0.0.0.0 --port "$PORT" \
     > "$LOG_FILE" 2>&1 &
 
 server_pid=$!

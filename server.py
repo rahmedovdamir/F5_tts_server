@@ -36,11 +36,14 @@ logging.basicConfig(level=logging.INFO)
 
 SERVER_ROOT = Path(__file__).resolve().parent
 TRT_RESULT_PREFIX = "__F5_TRT_RESULT__"
-TTS_BACKEND = os.getenv("F5_TTS_BACKEND", "trt").lower()
 TRT_NFE_STEP = int(os.getenv("F5_TRT_NFE_STEP", "14"))
 TRT_PYTHON = os.getenv(
     "F5_TRT_PYTHON", "/home/rdr/f5tts-trtllm-py310/bin/python"
 )
+# TensorRT needs a prebuilt environment and GPU-specific engines; without them use PyTorch.
+TTS_BACKEND = os.getenv(
+    "F5_TTS_BACKEND", "trt" if os.path.exists(TRT_PYTHON) else "pytorch"
+).lower()
 
 app = FastAPI()
 
